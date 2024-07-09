@@ -23,7 +23,7 @@ class EmailsToInviteRepository:
         )
         self.__conn.commit()
 
-    def find_email_from_trip(self, trip_id: str) -> List[Tuple]:
+    def find_emails_from_trip(self, trip_id: str) -> List[Tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
             """SELECT * FROM 
@@ -32,5 +32,5 @@ class EmailsToInviteRepository:
                 trip_id = ?""",
             (trip_id,),
         )
-        email = cursor.fetchall()
-        return email
+        emails = cursor.fetchall()
+        return emails

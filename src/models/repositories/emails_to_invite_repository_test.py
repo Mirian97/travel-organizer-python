@@ -28,5 +28,5 @@ def test_find_email_from_trip():
     conn = db_connection_handler.get_connection()
     emails_to_invite_repository = EmailsToInviteRepository(conn)
 
-    email = emails_to_invite_repository.find_email_from_trip(trip_id)
+    email = emails_to_invite_repository.find_emails_from_trip(trip_id)
     print("\n\n", email)

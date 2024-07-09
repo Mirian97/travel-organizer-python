@@ -1,5 +1,5 @@
 from sqlite3 import Connection
-from typing import Dict, Tuple
+from typing import Dict, List, Tuple
 
 
 class LinksRepository:
@@ -24,7 +24,7 @@ class LinksRepository:
         )
         self.__conn.commit()
 
-    def find_link_by_trip_id(self, trip_id: str) -> Tuple:
+    def find_links_from_trip(self, trip_id: str) -> List[Tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
             """SELECT * FROM 
@@ -33,5 +33,5 @@ class LinksRepository:
                 trip_id = ?""",
             (trip_id,),
         )
-        link = cursor.fetchone()
-        return link
+        links = cursor.fetchall()
+        return links

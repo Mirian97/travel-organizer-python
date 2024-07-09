@@ -25,9 +25,12 @@ def test_create_linkl() -> None:
 
 
 @pytest.mark.skip(reason="database interaction")
-def test_find_link_by_trip_id():
+def test_find_links_from_trip():
     conn = db_connection_handler.get_connection()
     links_repository = LinksRepository(conn)
 
-    email = links_repository.find_link_by_trip_id(trip_id)
-    print("\n\n", email)
+    response = links_repository.find_links_from_trip(trip_id)
+    print("\n\n", response)
+
+    assert isinstance(response, list)
+    assert isinstance(response[0], tuple)
