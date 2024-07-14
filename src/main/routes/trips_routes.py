@@ -73,7 +73,7 @@ def find_trip_link(tripId):
     return jsonify(response["body"]), (response["status_code"])
 
 
-@trips_routes_bp.route("/trips/<tripId>/invites", method=["POST"])
+@trips_routes_bp.route("/trips/<tripId>/invites", methods=["POST"])
 def invite_to_trip(tripId):
     conn = db_connection_handler.get_connection()
     participant_repository = ParticipantsRepository(conn)
@@ -85,7 +85,7 @@ def invite_to_trip(tripId):
     return jsonify(response["body"]), (response["status_code"])
 
 
-@trips_routes_bp.route("/trips/<tripId>/activities", method=["POST"])
+@trips_routes_bp.route("/trips/<tripId>/activities", methods=["POST"])
 def create_activity(tripId):
     conn = db_connection_handler.get_connection()
     activity_repository = ActivitiesRepository(conn)
