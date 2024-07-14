@@ -6,7 +6,7 @@ class ActivityCreator:
     def __init__(self, activity_repository) -> None:
         self.__activity_repository = activity_repository
 
-    def find(self, body: Dict, trip_id) -> Dict:
+    def create(self, body: Dict, trip_id) -> Dict:
         try:
             activity_id = str(uuid.uuid4())
 

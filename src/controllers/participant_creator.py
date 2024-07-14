@@ -7,7 +7,7 @@ class ParticipantCreator:
         self.__participant_repository = participant_repository
         self.__email_repository = email_repository
 
-    def find(self, body: Dict, trip_id) -> Dict:
+    def create(self, body: Dict, trip_id) -> Dict:
         try:
             participant_id = uuid.uuid4()
             email_id = uuid.uuid4()
