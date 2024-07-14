@@ -9,8 +9,8 @@ class ParticipantCreator:
 
     def create(self, body: Dict, trip_id) -> Dict:
         try:
-            participant_id = uuid.uuid4()
-            email_id = uuid.uuid4()
+            participant_id = str(uuid.uuid4())
+            email_id = str(uuid.uuid4())
 
             participant_infos = {
                 "id": participant_id,
