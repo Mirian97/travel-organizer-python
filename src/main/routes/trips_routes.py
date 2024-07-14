@@ -1,9 +1,12 @@
 from flask import Blueprint, jsonify, request
 
 from src.controllers.activity_creator import ActivityCreator
+from src.controllers.activity_finder import ActivityFinder
 from src.controllers.link_creator import LinkCreator
 from src.controllers.link_finder import LinkFinder
+from src.controllers.participant_confirmer import ParticipantConfirmer
 from src.controllers.participant_creator import ParticipantCreator
+from src.controllers.participant_finder import ParticipantFinder
 from src.controllers.trip_confirmer import TripConfirmer
 from src.controllers.trip_creator import TripCreator
 from src.controllers.trip_finder import TripFinder
@@ -92,5 +95,38 @@ def create_activity(tripId):
     controller = ActivityCreator(activity_repository)
 
     response = controller.create(request.json, tripId)
+
+    return jsonify(response["body"]), (response["status_code"])
+
+
+@trips_routes_bp.route("/trips/<tripId>/participants", methods=["GET"])
+def get_trip_participants(tripId):
+    conn = db_connection_handler.get_connection()
+    participant_repository = ParticipantsRepository(conn)
+    controller = ParticipantFinder(participant_repository)
+
+    response = controller.find(tripId)
+
+    return jsonify(response["body"]), (response["status_code"])
+
+
+@trips_routes_bp.route("/trips/<tripId>/activities", methods=["GET"])
+def get_trip_activities(tripId):
+    conn = db_connection_handler.get_connection()
+    activity_repository = ActivitiesRepository(conn)
+    controller = ActivityFinder(activity_repository)
+
+    response = controller.find(tripId)
+
+    return jsonify(response["body"]), (response["status_code"])
+
+
+@trips_routes_bp.route("/participants/<participantId>/confirm", methods=["GET"])
+def confirm_participant(participantId):
+    conn = db_connection_handler.get_connection()
+    participant_repository = ParticipantsRepository(conn)
+    controller = ParticipantConfirmer(participant_repository)
+
+    response = controller.confirm(participantId)
 
     return jsonify(response["body"]), (response["status_code"])
